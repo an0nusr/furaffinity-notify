@@ -1,0 +1,56 @@
+# Welcome to the FA Notify Config file
+# This will configure FA notify.
+#
+# The only thing you MUST change in this file is the 
+# notification URL. That is not optional, and does not
+# have a default value. 
+
+# where to find your cookie file for login
+
+cookieFile = "cookies.txt"
+
+# UserAgent (what browser to say to FA we are using)
+
+userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.7) Gecko/20100101 Firefox/68.7"
+
+# what should trigger a notification
+
+notifyOn = [
+    "submissions",
+    "watches",
+    "comments",
+    "favorites",
+    "journals",
+    "notes"
+]
+
+# where should I notify (via Apprise)
+# this includes things like email, telegram, discord, etc
+# see https://github.com/caronc/apprise/wiki for all the supported
+# modules and how to declare them. 
+
+# Example (IFTTT): ifttt://{WebhookID}@{Event}/
+# Example (Email, Gmail): mailto://{user}:{password}@gmail.com
+
+notificationUrl = "ADD_YOURS_HERE"
+
+# check interval - how often should I look for new notifications (in minutes)
+# note that setting this too low will likely get FA upset with you.
+# (don't go below 20)
+
+checkInterval = 20
+
+# log level - if you're getting new notifs but you aren't seeing anything,
+# consider setting this to DEBUG, which will log exactly what notifications
+# are seen before sending them to your preferred notification service, details
+# about connections, and more diagnostic info. 
+# If things are working normally, set this to INFO
+
+logLevel = "INFO"
+
+###### You shouldn't have to edit below this line ######
+
+# where should we store info about the last time we ran (so we don't
+# keep emailing about the same notification)
+
+shelveFile = "pastNotifs.db"
