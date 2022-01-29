@@ -14,6 +14,8 @@ cookieFile = "cookies.txt"
 userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.7) Gecko/20100101 Firefox/68.7"
 
 # what should trigger a notification
+# valid options are "submissions", "watches", "comments",
+# "favorites", "journals", and "notes".
 
 notifyOn = [
     "submissions",
@@ -35,10 +37,10 @@ notifyOn = [
 notificationUrl = "ADD_YOURS_HERE"
 
 # check interval - how often should I look for new notifications (in minutes)
-# note that setting this too low will likely get FA upset with you.
-# (don't go below 20)
+# note that setting this too low may cause FA to flag your account.
+# (be kind to their servers - try to keep this above 30)
 
-checkInterval = 20
+checkInterval = 30
 
 # log level - if you're getting new notifs but you aren't seeing anything,
 # consider setting this to DEBUG, which will log exactly what notifications
