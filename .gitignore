@@ -163,6 +163,7 @@ cookies.txt
 
 # avoid committing the database
 *.db
+pastNotifs.json
 
 # don't commit the real config file
 config.toml

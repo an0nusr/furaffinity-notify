@@ -3,7 +3,8 @@ import requests, requests.cookies
 import http.cookiejar as cookielib
 from bs4 import BeautifulSoup
 import apprise
-import shelve
+import json
+from pathlib import Path
 from typing import Dict, cast
 from io import StringIO
 from time import sleep
@@ -37,7 +38,7 @@ def main():
 def getNewNotifications(config):
     session = createRequestSession(config['userAgent'], config['cookieFile'])
     currentNotifs = getNotifications(session)
-    oldNotifs = loadOldNotifications(config['shelveFile'])
+    oldNotifs = loadOldNotifications(config['dbFile'])
 
     logging.debug(f"Notifications reported by FA: {currentNotifs}")
     logging.debug(f"Notifications from last check: {oldNotifs}")
@@ -50,7 +51,7 @@ def getNewNotifications(config):
             newNotifs[k] = v
     
     # update the db
-    saveNotifications(config['shelveFile'], currentNotifs)
+    saveNotifications(config['dbFile'], currentNotifs)
 
     # return new notifications
     return newNotifs
@@ -122,18 +123,19 @@ def getEmptyNotifDict():
         "notes": 0
     }
 
-def loadOldNotifications(shelveFile: str):
+def loadOldNotifications(jsonFile: str):
     #note if this is a fresh db
         
-    with shelve.open(shelveFile) as db:
-        if 'notifs' in db: 
-            return db['notifs']
+    if not Path(jsonFile).exists():
+        return getEmptyNotifDict()
 
-        else: return getEmptyNotifDict()
+    with open(jsonFile, 'r') as f:
+        return json.load(f)
 
-def saveNotifications(shelveFile: str, notifs: Dict[str, int]):
-    with shelve.open(shelveFile) as db:
-        db['notifs'] = notifs
+def saveNotifications(jsonFile: str, notifs: Dict[str, int]):
+
+    with open(jsonFile, 'w') as f:
+        json.dump(notifs, f)
 
 def sendNotification(subj: str, msg: str, notifUrl: str, notifPrefix: str = ""):
     apobj = apprise.Apprise()

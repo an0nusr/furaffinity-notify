@@ -61,4 +61,4 @@ notificationPrefix = ""
 # where should we store info about the last time we ran (so we don't
 # keep emailing about the same notification)
 
-shelveFile = "pastNotifs.db"
+dbFile = "pastNotifs.json"
