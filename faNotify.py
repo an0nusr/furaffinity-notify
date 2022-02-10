@@ -28,7 +28,7 @@ def main():
 
             msg = buildNotificationMessage(newNotifs)
             subj = "FA Notify - New FA Notifications"
-            sendNotification(subj, msg, config['notificationUrl'])
+            sendNotification(subj, msg, config['notificationUrl'], config['notificationPrefix'])
 
             logging.info("Message sent")
         
@@ -135,9 +135,12 @@ def saveNotifications(shelveFile: str, notifs: Dict[str, int]):
     with shelve.open(shelveFile) as db:
         db['notifs'] = notifs
 
-def sendNotification(subj: str, msg: str, notifUrl: str):
+def sendNotification(subj: str, msg: str, notifUrl: str, notifPrefix: str = ""):
     apobj = apprise.Apprise()
     apobj.add(notifUrl)
+
+    if notifPrefix:
+        msg = notifPrefix + msg
 
     apobj.notify(
         body=msg,

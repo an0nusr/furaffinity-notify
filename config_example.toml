@@ -50,6 +50,12 @@ checkInterval = 30
 
 logLevel = "INFO"
 
+# notification prefix (optional)
+# If you are using some types of notifications (like Discord), you may want
+# to prefix notification messages with @group. Anything you set here will be
+# prepended to the message body.
+notificationPrefix = ""
+
 ###### You shouldn't have to edit below this line ######
 
 # where should we store info about the last time we ran (so we don't
